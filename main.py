@@ -7,10 +7,16 @@ import torch
 import matplotlib.pyplot as plt
 import pydicom as dicom
 
-model = torch.hub.load('ultralytics/yolov5','custom',
-       path='weights/best.pt',force_reload=False)
+path = "1.2.246.512.1.2.0.4.3123315755482.18975174176.20221231095825.png"
 
-res = model("1.2.246.512.1.2.0.4.3123315755482.18975174176.20221231095825.png")
+
+
+model = torch.hub.load('yolov5','custom',
+       path='weights/best.pt',source="local")
+
+
+
+res = model(path)
 crp = res.crop(save=False)
 
 length = len(crp)
