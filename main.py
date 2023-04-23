@@ -10,11 +10,11 @@ from time import time
 
 
 # Path of dicom images
-path = "/run/media/meysam/PROGRAM/0.data/iaaa/images"
+path = "/run/media/meysam/PROGRAM/0.data/iaaa/tests"
 images_path = os.listdir(path)
-images_path = list(map(lambda a:path+"/"+a,images))
+images_path = list(map(lambda a:path+"/"+a,images_path))
 
-images_length = len(images) # Number of images
+images_length = len(images_path) # Number of images
 images = np.zeros((images_length,300,600),dtype="uint8") # Empty array for images
 sop = np.zeros(images_length,dtype="str")
 for i,im_path in enumerate(images_path):
@@ -24,12 +24,12 @@ for i,im_path in enumerate(images_path):
     im = cv2.resize(im,(600,300)) # Resize image for yolo(300*600)| cv2  is inverse !!!
     images[i] = im
     
-model = torch.hub.load('yolov5','custom', # Yolo pretrained model (for crop dentals)
+model = torch.hub.load('yolov5','custom', # Yolo pre-trained model (for crop dentals)
        path='weights/best.pt',source="local")
 network = tf.keras.models.load_model("first_network.h5") # Neural network model
 
 def predict(x): 
-    pred = network.predict(x)
+    pred = network.predict(x,verbose=0)
     # If the probability of the photo being abnormal is less than 70%, we assume it is normal.
     pred[pred[:,1]<0.7] = 0 
     pred = np.argmax(pred,axis=1)
@@ -58,8 +58,8 @@ labels = apply_model(images)
 e = time()
 print("="*20+"\ntime of run :",round(e-s,2))
 
-df = pd.Dataframe({"SOPInstanceUID":sop,"Labels":labels)
-print(df.head(5))
+df = pd.DataFrame({"SOPInstanceUID":sop,"Labels":labels})
+print(df.head(10))
 
 
 
