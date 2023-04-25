@@ -7,23 +7,9 @@ import torch
 import matplotlib.pyplot as plt
 import pydicom as dicom
 from time import time
+import argparse
 
 
-# Path of dicom images
-path = "/run/media/meysam/PROGRAM/0.data/iaaa/tests"
-images_path = os.listdir(path)
-images_path = list(map(lambda a:path+"/"+a,images_path))
-
-images_length = len(images_path) # Number of images
-images = np.zeros((images_length,300,600),dtype="uint8") # Empty array for images
-sop = np.zeros(images_length,dtype="str")
-for i,im_path in enumerate(images_path):
-    im = dicom.dcmread(im_path) # Read dicom image
-    sop[i] = im.SOPInstanceUID # Save SopInstanceUID in a variable(for using in csv file)
-    im = ((im.pixel_array/65535)*255).astype('uint8') # Convert dtype of images to uint8
-    im = cv2.resize(im,(600,300)) # Resize image for yolo(300*600)| cv2  is inverse !!!
-    images[i] = im
-    
 model = torch.hub.load('yolov5','custom', # Yolo pre-trained model (for crop dentals)
        path='weights/best.pt',source="local")
 network = tf.keras.models.load_model("first_network.h5") # Neural network model
@@ -53,13 +39,28 @@ def apply_model(images):
         pred[j] = predict(crps)
     return pred
         
-s = time()
-labels = apply_model(images)
-e = time()
-print("="*20+"\ntime of run :",round(e-s,2))
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--inputs",help="path to folder containig test images.")
+    parser.add_argument("--output", help="path to final csv output")
+    args = parser.parse_args()
+    
+    images_path = os.listdir(args.inputs)
+    images_length = len(images_path)
+    images = np.zeros((images_length,300,600),dtype="uint8")
+    sop = []
+    for i,im_path in enumerate(images_path):
+        im = dicom.dcmread(args.inputs+"/"+im_path) # Read dicom image
+        sop.append(im.SOPInstanceUID )# Save SopInstanceUID in a variable(for using in csv file)
+        im = ((im.pixel_array/65535)*255).astype('uint8') # Convert dtype of images to uint8
+        im = cv2.resize(im,(600,300)) # Resize image for yolo(300*600)| cv2  is inverse !!!
+        images[i] = im
+        
+    
+    labels = apply_model(images)
+    df = pd.DataFrame({"SOPInstanceUID":sop,"Labels":labels})
+    df.to_csv(args.output)
 
-df = pd.DataFrame({"SOPInstanceUID":sop,"Labels":labels})
-print(df.head(10))
 
 
 
