@@ -59,8 +59,13 @@ if __name__ == "__main__":
     
     labels = apply_model(images)
     df = pd.DataFrame({"SOPInstanceUID":sop,"Labels":labels})
-    df.to_csv(args.output)
-
+    print("="*10+" csv "+"="*10)
+    print(df.head(10),"\n"+"="*30)
+    if args.output.endswith(".csv"):    
+        df.to_csv(args.output)
+    else:
+        df.to_csv(args.output+".csv")
+    print("CSV file saved\u2713")
 
 
 
