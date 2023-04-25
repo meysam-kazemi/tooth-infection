@@ -10,6 +10,7 @@ from time import time
 import argparse
 
 
+# Load models
 model = torch.hub.load('yolov5','custom', # Yolo pre-trained model (for crop dentals)
        path='weights/best.pt',source="local")
 network = tf.keras.models.load_model("first_network.h5") # Neural network model
@@ -45,9 +46,10 @@ if __name__ == "__main__":
     parser.add_argument("--output", help="path to final csv output")
     args = parser.parse_args()
     
+    # Images directory
     images_path = os.listdir(args.inputs)
     images_length = len(images_path)
-    images = np.zeros((images_length,300,600),dtype="uint8")
+    images = np.zeros((images_length,300,600),dtype="uint8") # An empty arrat for saving images
     sop = []
     for i,im_path in enumerate(images_path):
         im = dicom.dcmread(args.inputs+"/"+im_path) # Read dicom image
@@ -57,10 +59,11 @@ if __name__ == "__main__":
         images[i] = im
         
     
-    labels = apply_model(images)
-    df = pd.DataFrame({"SOPInstanceUID":sop,"Labels":labels})
+    labels = apply_model(images) # Predict labels of test images
+    df = pd.DataFrame({"SOPInstanceUID":sop,"Labels":labels}) # Create DataFrame of labels
     print("="*10+" csv "+"="*10)
     print(df.head(10),"\n"+"="*30)
+    # Save DataFrame
     if args.output.endswith(".csv"):    
         df.to_csv(args.output)
     else:
