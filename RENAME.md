@@ -12,20 +12,12 @@
 
 
 # TODO:
--[x] Read DICOM images and save them in png format(to train Yolo).
-
--[x] Labeling some of the images for Yolo.
-
--[x] Train Yolo5 and save the model.
-
--[x] Separating normal images from abnormals.
-
--[x] Crop normal images with Pre-trained Yolo and save them in a new folder.
-
--[x] Crop abnormal images using their masks.
-
--[x] Argumenting croped normal images.
-
--[x] Build a sequential model and train it.Then save the model.
-
--[x] Write a Python code that takes the DICOM image and gives its cropped images. Then, it gives these cropped images to the sequence model to predict whether these image are normal or abnormal
+- [x] Read DICOM images and save them in png format(to train Yolo).
+- [x] Labeling some of the images for Yolo.
+- [x] Train Yolo5 and save the model.
+- [x] Separating normal images from abnormals.
+- [x] Crop normal images with Pre-trained Yolo and save them in a new folder.
+- [x] Crop abnormal images using their masks.
+- [x] Argumenting croped normal images.
+- [x] Build a sequential model and train it.Then save the model.
+- [x] Write a Python code that takes the DICOM image and gives its cropped images. Then, it gives these cropped images to the sequence model to predict whether these image are normal or abnormal
