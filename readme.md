@@ -9,6 +9,8 @@
 - The number of abnormal teeth is 71, and the number of normal teeth is about 8000, and this reduces the performance of the model.
 ## Solution
 - One of the methods that I thought would solve this problem to some extent was augmenting abnormal images.
+
+
 # TODO:
 -[x] Read DICOM images and save them in png format(to train Yolo).
 
