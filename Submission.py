@@ -13,8 +13,11 @@ import argparse
 # Load models
 model = torch.hub.load('yolov5','custom', # Yolo pre-trained model (for crop dentals)
        path='weights/best.pt',source="local")
-network = tf.keras.models.load_model("first_network.h5") # Neural network model
-
+network = tf.keras.models.load_model("first_network.h5",compile=False) # Neural network model
+network.compile(loss="binary_crossentropy",
+    optimizer="adam",
+    metrics=["acc"]
+             )
 def predict(x): 
     pred = network.predict(x,verbose=0)
     # If the probability of the photo being abnormal is less than 70%, we assume it is normal.
