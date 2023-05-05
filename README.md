@@ -8,7 +8,7 @@
 - One of the problems of this contest is the lack of abnormal photos.
 - The number of abnormal teeth is **71**, and the number of normal teeth is about **8000**, and this reduces the performance of the model.
 ## Solution
-- One of the methods that I thought would solve this problem to some extent was **agumenting** abnormal images.
+- One of the methods that I thought would solve this problem to some extent was **augmenting** abnormal images.
 
 
 # TODO:
@@ -18,6 +18,6 @@
 - [x] Separating normal images from abnormals.
 - [x] Crop normal images with Pre-trained Yolo and save them in a new folder.
 - [x] Crop abnormal images using their masks.
-- [x] **Agumenting** croped normal images.
+- [x] **Augmenting** croped normal images.
 - [x] Build a **sequential** model and train it.Then save the model.
 - [x] Write a Python code that takes the **DICOM** image and gives its cropped images. Then, it gives these cropped images to the sequential model to predict whether these image are normal or abnormal
