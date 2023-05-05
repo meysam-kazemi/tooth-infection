@@ -3,7 +3,7 @@
 ## The purpose of this project
 - In this competition, we have to predict whether these images have damaged (infected) teeth or not using **DICOM** data.
 ## Steps
-- In this test, I first used the **YOLO5** to examine each tooth separately.I labeled about 200 images to train Yolo.
+- In this test, I first used the **YOLO5** to examine each tooth separately.I labeled about 200 images to train `Yolo`.
 ## Problems
 - One of the problems of this contest is the lack of abnormal photos.
 - The number of abnormal teeth is **71**, and the number of normal teeth is about **8000**, and this reduces the performance of the model.
