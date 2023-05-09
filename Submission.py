@@ -55,8 +55,8 @@ if __name__ == "__main__":
     images = np.zeros((images_length,300,600),dtype="uint8") # An empty arrat for saving images
     sop = []
     for i,im_path in enumerate(images_path):
-        im = dicom.dcmread(args.inputs+"/"+im_path) # Read dicom image
-        sop.append(im.SOPInstanceUID )# Save SopInstanceUID in a variable(for using in csv file)
+        im = dicom.dcmread(args.inputs+"/"+im_path,force=True) # Read dicom image
+        sop.append(args.output[:-4])# Save SopInstanceUID in a variable(for using in csv file)
         im = ((im.pixel_array/65535)*255).astype('uint8') # Convert dtype of images to uint8
         im = cv2.resize(im,(600,300)) # Resize image for yolo(300*600)| cv2  is inverse !!!
         images[i] = im
