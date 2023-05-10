@@ -15,9 +15,10 @@ model = torch.hub.load('yolov5','custom', # Yolo pre-trained model (for crop den
        path='weights/best.pt',source="local")
 network = tf.keras.models.load_model("first_network.h5",compile=False) # Neural network model
 network.compile(loss="binary_crossentropy",
-    optimizer="adam",
+                optimizer="adam",
     metrics=["acc"]
              )
+network.summary()
 def predict(x): 
     pred = network.predict(x,verbose=0)
     # If the probability of the photo being abnormal is less than 70%, we assume it is normal.
@@ -56,7 +57,7 @@ if __name__ == "__main__":
     sop = []
     for i,im_path in enumerate(images_path):
         im = dicom.dcmread(args.inputs+"/"+im_path,force=True) # Read dicom image
-        sop.append(args.output[:-4])# Save SopInstanceUID in a variable(for using in csv file)
+        sop.append(im_path[:-4])# Save SopInstanceUID in a variable(for using in csv file)
         im = ((im.pixel_array/65535)*255).astype('uint8') # Convert dtype of images to uint8
         im = cv2.resize(im,(600,300)) # Resize image for yolo(300*600)| cv2  is inverse !!!
         images[i] = im
