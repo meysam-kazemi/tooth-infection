@@ -56,11 +56,12 @@ if __name__ == "__main__":
     images = np.zeros((images_length,300,600),dtype="uint8") # An empty arrat for saving images
     sop = []
     for i,im_path in enumerate(images_path):
-        im = dicom.dcmread(args.inputs+"/"+im_path,force=True) # Read dicom image
-        sop.append(im_path[:-4])# Save SopInstanceUID in a variable(for using in csv file)
-        im = ((im.pixel_array/65535)*255).astype('uint8') # Convert dtype of images to uint8
-        im = cv2.resize(im,(600,300)) # Resize image for yolo(300*600)| cv2  is inverse !!!
-        images[i] = im
+        if im_path.split(".")[-1] == "dcm":
+            im = dicom.dcmread(args.inputs+"/"+im_path,force=True) # Read dicom image
+            sop.append(im_path[:-4])# Save SopInstanceUID in a variable(for using in csv file)
+            img = ((im.pixel_array/65535)*255).astype('uint8') # Convert dtype of images to uint8
+            img = cv2.resize(img,(600,300)) # Resize image for yolo(300*600)| cv2  is inverse !!!
+            images[i] = img
         
     
     labels = apply_model(images) # Predict labels of test images
