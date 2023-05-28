@@ -19,7 +19,7 @@ network.compile(loss="binary_crossentropy",
     metrics=["acc"]
              )
 network.summary()
-def predict(x): 
+def predict(x):  # Predict of each tooth separately
     pred = network.predict(x,verbose=0)
     # If the probability of the photo being abnormal is less than 70%, we assume it is normal.
     pred[pred[:,1]<0.7] = 0 
@@ -28,7 +28,7 @@ def predict(x):
 
 def apply_model(images):
     pred = np.empty((len(images),),dtype="uint8") # Save labels that predict model in a variable(for using in csv file)
-    for j,im in enumerate(images):
+    for j,im in enumerate(images): # Apply the network to all teeth in all images
         res = model(im)
         crp = res.crop(save=False)
         
@@ -36,8 +36,8 @@ def apply_model(images):
         crps = np.zeros((length,60,60))
         
         for i in range(length):
-            im = cv2.cvtColor(crp[i]["im"],cv2.COLOR_BGR2GRAY)
-            crps[i] = cv2.resize(im,(60,60))
+            im = cv2.cvtColor(crp[i]["im"],cv2.COLOR_BGR2GRAY) # Convert dicom image to gray scale
+            crps[i] = cv2.resize(im,(60,60)) # Resize tooth image
             
         crps = crps.reshape(crps.shape+(1,))
         
@@ -74,6 +74,3 @@ if __name__ == "__main__":
     else:
         df.to_csv(args.output+".csv")
     print("CSV file saved\u2713")
-
-
-
