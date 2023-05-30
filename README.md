@@ -20,4 +20,5 @@
 - [x] Crop abnormal images using their masks.
 - [x] **Augmenting** croped normal images.
 - [x] Build a **sequential** model and train it.Then save the model.
-- [x] Write a Python code that takes the **DICOM** image and gives its cropped images. Then, it gives these cropped images to the sequential model to predict whether these image are normal or abnormal
+- [x] Write a Python code that takes the **DICOM** image and gives its cropped images. Then, it gives these cropped images to the sequential model to predict whether these image are normal or abnormal.
+- [ ] Testing the code on new data.
