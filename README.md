@@ -1,14 +1,14 @@
-# IAAA
+# TOOTH INFECTION
+## Description:
+We wanted to predict tooth infection using opg images,
 
-## The purpose of this project
-- In this competition, we have to predict whether these images have damaged (infected) teeth or not using **DICOM** data.
-## Steps
-- In this test, I first used the **YOLO5** to examine each tooth separately.I labeled about 200 images to train `Yolo`.
-## Problems
-- One of the problems of this contest is the lack of abnormal photos.
-- The number of abnormal teeth is **71**, and the number of normal teeth is about **8000**, and this reduces the performance of the model.
-## Solution
-- One of the methods that I thought would solve this problem to some extent was **augmenting** abnormal images.
+for this we first draw a box around each tooth.
+
+Then we check these teeth individually to see if they have an infection or not.
+
+
+
+
 
 
 # TODO:
@@ -21,4 +21,4 @@
 - [x] **Augmenting** croped normal images.
 - [x] Build a **sequential** model and train it.Then save the model.
 - [x] Write a Python code that takes the **DICOM** image and gives its cropped images. Then, it gives these cropped images to the sequential model to predict whether these image are normal or abnormal.
-- [ ] Testing the code on new data.
+- [x] Testing the code on new data.
