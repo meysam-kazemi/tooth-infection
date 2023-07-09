@@ -6,14 +6,18 @@ for this we first draw a box around each tooth.
 
 Then we check these teeth individually to see if they have an infection or not.
 
-![OPG image](./images/opg.png?row=true)
 > OPG image example.
+  ![OPG image](./images/opg.png?row=true)
 
-![classes](./images/yolo.png?row=true)
+
+
 > Detect each tooth.
+![classes](./images/yolo.png?row=true)
 
-![croped](./images/yolo.png?row=true)
+
+
 > Croped tooth.
+![croped](./images/crop.png?row=true)
 
 
 # TODO:
