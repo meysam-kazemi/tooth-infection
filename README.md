@@ -5,18 +5,13 @@ We wanted to predict tooth infection using opg images,
 for this we first draw a box around each tooth.
 
 Then we check these teeth individually to see if they have an infection or not.
-
-> OPG image example.
+### OPG image example.
   ![OPG image](./images/opg.png?row=true)
 
-
-
-> Detect each tooth.
+### Detect each tooth.
 ![classes](./images/yolo.png?row=true)
 
-
-
-> Croped tooth.
+### Croped tooth.
 ![croped](./images/crop.png?row=true)
 
 
